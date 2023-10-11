@@ -4,9 +4,13 @@ const { MongoClient } = require('mongodb');
 const client = new MongoClient(mongoString);
 
 async function main() {
-    await client.connect();
-
-    await client.close();
+    try {
+        await client.connect();
+    } catch(error){
+        console.error(error);
+    } finally {
+        await client.close();
+    }
 }
 
 main();
