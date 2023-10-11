@@ -6,11 +6,20 @@ const client = new MongoClient(mongoString);
 async function main() {
     try {
         await client.connect();
-    } catch(error){
+
+        await listDB(client);
+    } catch (error) {
         console.error(error);
     } finally {
         await client.close();
     }
+}
+
+async function listDB(client) {
+
+    let databaseList = await client.db().admin().listDatabases();
+
+    console.log(databaseList);
 }
 
 main();
